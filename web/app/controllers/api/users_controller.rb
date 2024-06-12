@@ -20,6 +20,12 @@ class Api::UsersController < AuthenticatedController
 
   private
 
+  def ensure_authenticated_shop
+    unless shop_session
+      render json: { error: 'Unauthenticated' }, status: :unauthorized
+    end
+  end
+
   def user_params
     params.require(:user).permit(:name, :email)
   end

@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    resources :organizations, only: [:create, :show]
     resources :users, only: [:index, :create]
+    resources :users_no_auth, only: [:index]
   end
   # resources :users, only: :create
 

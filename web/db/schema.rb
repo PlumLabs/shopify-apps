@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_22_152543) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_05_172852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "shop_url"
+    t.string "api_url"
+    t.string "checkout_url"
+    t.string "debug_checkout_url"
+    t.string "debug_api_url"
+    t.string "backoffice_url"
+    t.string "replicated_site_url"
+    t.string "referral_cookie_name"
+    t.string "rc_cookie_name"
+    t.string "login_cookie"
+    t.string "referral_parameter"
+    t.string "default_webalias"
+    t.string "enable_enroller_search"
+    t.string "retail_customer_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false

@@ -23,6 +23,10 @@ ShopifyApp.configure do |config|
   config.login_callback_url = "/api/auth/callback"
   config.embedded_redirect_url = "/ExitIframe"
 
+  # Configurando para no usar shopify ID
+  # config.allow_jwt_authentication = true
+  # config.allow_cookie_authentication = true
+
   # You may want to charge merchants for using your app. Setting the billing configuration will cause the Authenticated
   # controller concern to check that the session is for a merchant that has an active one-time payment or subscription.
   # If no payment is found, it starts off the process and sends the merchant to a confirmation URL so that they can

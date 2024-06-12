@@ -1,18 +1,7 @@
-{{ 'ratings.stars.label' | t }}:
-
-{%- for i in (1..rating) -%}
-  ★
-{%- endfor -%}
-{%- assign blank_stars = 5 | minus: rating -%}
-{%- for i in (1..blank_stars) -%}
-  ☆
-{%- endfor -%}
-
-
 <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-<script src="https://unpkg.com/@shopify/app-bridge@2.0.0/umd/index.js"></script>
+<!-- <script src="https://unpkg.com/@shopify/app-bridge@2.0.0/umd/index.js"></script>
 <script src="https://unpkg.com/@shopify/app-bridge-react@2.0.0/umd/index.js"></script>
 <script src="https://unpkg.com/@shopify/app-bridge-utils@2.0.0/umd/index.js"></script>
 
@@ -23,7 +12,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@shopify/app-bridge"></script>
 
-<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script> -->
 
 <div id="react-component"></div>
 <script type="text/babel" src="{{ 'react_component.js' | asset_url }}"></script>

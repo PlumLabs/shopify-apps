@@ -18,7 +18,9 @@ class HomeController < ApplicationController
       contents = File.read(File.join(Rails.env.production? ? PROD_INDEX_PATH : DEV_INDEX_PATH, "index.html"))
 
       # Replace placeholders with actual meta tag values
-      contents.gsub!('<!-- CSRF_META_TAG -->', csrf_meta_tags)
+    # contents.gsub!('<meta name="csrf-token" content="" />', csrf_meta_tags)
+    contents.gsub!('<meta name="csrf-token" content="" />', csrf_meta_tags)
+    contents.gsub!('<div id="app" content="">', "<div id='app' content='#{csrf_meta_tags}'>")
 
       render(plain: contents, content_type: "text/html", layout: false)
     end

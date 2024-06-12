@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- CSRF_META_TAG -->
+
     <!-- Ensures that the UI is properly scaled in the Shopify Mobile app -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -16,9 +16,13 @@
         document.getElementsByTagName("head")[0].append(script);
       }
     </script>
+
+    <!-- CSRF_META_TAG -->
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="" />
   </head>
   <body>
-    <div id="app"><!--index.jsx injects App.jsx here--></div>
+    <div id="app" content=""><!--index.jsx injects App.jsx here--></div>
     <script type="module" src="/index.jsx"></script>
   </body>
 </html>

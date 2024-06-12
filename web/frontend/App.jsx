@@ -6,10 +6,11 @@ import Routes from "./Routes";
 import {
   AppBridgeProvider,
   QueryProvider,
+  TokenProvider,
   PolarisProvider,
 } from "./components";
 
-export default function App() {
+export default function App({ csrfToken }) {
   // Any .tsx or .jsx files in /pages will become a route
   // See documentation for <Routes /> for more info
   const pages = import.meta.globEager("./pages/**/!(*.test.[jt]sx)*.([jt]sx)");
@@ -20,15 +21,17 @@ export default function App() {
       <BrowserRouter>
         <AppBridgeProvider>
           <QueryProvider>
-            <NavigationMenu
-              navigationLinks={[
-                {
-                  label: t("NavigationMenu.pageName"),
-                  destination: "/pagename",
-                },
-              ]}
-            />
-            <Routes pages={pages} />
+            <TokenProvider csrfToken={csrfToken}>
+              <NavigationMenu
+                navigationLinks={[
+                  {
+                    label: t("NavigationMenu.pageName"),
+                    destination: "/pagename",
+                  },
+                ]}
+              />
+              <Routes pages={pages} />
+            </TokenProvider>
           </QueryProvider>
         </AppBridgeProvider>
       </BrowserRouter>

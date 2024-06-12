@@ -3,7 +3,7 @@
 client_id = "a350c3ccda1170dc5bdafce9bd8065d5"
 name = "tutorial-rails-app"
 handle = "tutorial-rails-app"
-application_url = "https://segment-barn-broker-children.trycloudflare.com"
+application_url = "https://funky-trance-trace-find.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://segment-barn-broker-children.trycloudflare.com/auth/callback",
-  "https://segment-barn-broker-children.trycloudflare.com/auth/shopify/callback",
-  "https://segment-barn-broker-children.trycloudflare.com/api/auth/callback"
+  "https://funky-trance-trace-find.trycloudflare.com/auth/callback",
+  "https://funky-trance-trace-find.trycloudflare.com/auth/shopify/callback",
+  "https://funky-trance-trace-find.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

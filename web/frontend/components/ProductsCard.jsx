@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Card,
   TextContainer,
@@ -15,9 +15,25 @@ import axios from "axios";
 import createApp from "@shopify/app-bridge";
 import { getSessionToken } from "@shopify/app-bridge/utilities";
 
+import { TokenContext } from "./providers/TokenProvider";
+
 export function ProductsCard() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [csrfToken, setCsrfToken] = useState("");
+  const [shopUrl, setShopUrl] = useState("");
+  const [apiUrl, setApiUrl] = useState("");
+  const [checkoutUrl, setCheckoutUrl] = useState("");
+  const [debugCheckoutUrl, setDebugCheckoutUrl] = useState("");
+  const [debugApiUrl, setDebugApiUrl] = useState("");
+  const [backofficeUrl, setBackofficeUrl] = useState("");
+  const [replicatedSiteUrl, setReplicatedSiteUrl] = useState("");
+  const [referralCookieName, setReferralCookieName] = useState("");
+  const [rcCookieName, setRcCookieName] = useState("");
+  const [loginCookie, setLoginCookie] = useState("");
+  const [referralParameter, setReferralParameter] = useState("");
+  const [defaultWebalias, setDefaultWebalias] = useState("");
+  const [enableEnrollerSearch, setEnableEnrollerSearch] = useState("");
+  const [retailCustomerType, setRetailCustomerType] = useState("");
+
   const [shopifyAccessToken, setShopifyAccessToken] = useState("");
 
   const emptyToastProps = { content: null };
@@ -26,6 +42,9 @@ export function ProductsCard() {
   const fetch = useAuthenticatedFetch();
   const { t } = useTranslation();
   const productsCount = 5;
+
+  const { csrfToken } = useContext(TokenContext);
+  // console.log("csrfToken ", csrfToken);
 
   const {
     data,
@@ -41,30 +60,50 @@ export function ProductsCard() {
     },
   });
 
-  // useEffect(() => {
-  //   // Actualiza el título del documento usando la API del navegador
-  //   setShopifyAccessToken;
-
-  //   const params = {
-  //     client_id: "a350c3ccda1170dc5bdafce9bd8065d5",
-  //     client_secret: "e6fdbe2374d1db545f9daecc87b1bb5a",
-  //     code: "authorization_code_from_shopify",
-  //   };
-
-  //   const shop = "quickstart-24eb93de.myshopify.com  ";
-
-  //   axios
-  //     .post(`https://${shop}/admin/oauth/access_token`, params)
-  //     .then((response) => {
-  //       const accessToken = response.data.access_token;
-  //       // Guarda este token para futuras solicitudes
-  //       console.log("Access Token:", accessToken);
-  //       setShopifyAccessToken(accessToken);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching access token:", error);
-  //     });
-  // }, [shopifyAccessToken]);
+  const fields = [
+    { label: "ShopUrl", value: shopUrl, setter: setShopUrl },
+    { label: "ApiUrl", value: apiUrl, setter: setApiUrl },
+    { label: "CheckoutUrl", value: checkoutUrl, setter: setCheckoutUrl },
+    {
+      label: "DebugCheckoutUrl",
+      value: debugCheckoutUrl,
+      setter: setDebugCheckoutUrl,
+    },
+    { label: "DebugApiUrl", value: debugApiUrl, setter: setDebugApiUrl },
+    { label: "BackofficeUrl", value: backofficeUrl, setter: setBackofficeUrl },
+    {
+      label: "ReplicatedSiteUrl",
+      value: replicatedSiteUrl,
+      setter: setReplicatedSiteUrl,
+    },
+    {
+      label: "ReferralCookieName",
+      value: referralCookieName,
+      setter: setReferralCookieName,
+    },
+    { label: "RcCookieName", value: rcCookieName, setter: setRcCookieName },
+    { label: "LoginCookie", value: loginCookie, setter: setLoginCookie },
+    {
+      label: "ReferralParameter",
+      value: referralParameter,
+      setter: setReferralParameter,
+    },
+    {
+      label: "DefaultWebalias",
+      value: defaultWebalias,
+      setter: setDefaultWebalias,
+    },
+    {
+      label: "EnableEnrollerSearch",
+      value: enableEnrollerSearch,
+      setter: setEnableEnrollerSearch,
+    },
+    {
+      label: "RetailCustomerType",
+      value: retailCustomerType,
+      setter: setRetailCustomerType,
+    },
+  ];
 
   const toastMarkup = toastProps.content && !isRefetchingCount && (
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
@@ -72,7 +111,7 @@ export function ProductsCard() {
 
   const handlePopulate = async () => {
     setIsLoading(true);
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    // const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const response = await fetch("/api/products", { method: "POST" });
 
     if (response.ok) {
@@ -95,30 +134,52 @@ export function ProductsCard() {
   // console.log("csrfToken ", csrfToken);
   // axios.defaults.headers.common["X-CSRF-Token"] = csrfToken;
 
+  // const scriptTag = document.querySelector(
+  //   'script[data-serialized-id="server-data"]',
+  // );
+  // const jsonData = JSON.parse(scriptTag.textContent);
+  // const csrfToken = jsonData.csrfToken;
+  // Selecciona el script tag que contiene el JSON
+
   const handleSubmit = async (event) => {
-    const response = await fetch("/api/users", {
+    const response = await fetch("/api/organizations", {
       method: "POST",
-      body: JSON.stringify({ user: { name, email } }),
+      body: JSON.stringify({
+        organization: {
+          shop_url: shopUrl,
+          api_url: apiUrl,
+          checkout_url: checkoutUrl,
+          debug_checkout_url: debugCheckoutUrl,
+          debug_api_url: debugApiUrl,
+          backoffice_url: backofficeUrl,
+          replicated_site_url: replicatedSiteUrl,
+          referral_cookie_name: referralCookieName,
+          rc_cookie_name: rcCookieName,
+          login_cookie: loginCookie,
+          referral_parameter: referralParameter,
+          default_webalias: defaultWebalias,
+          enable_enroller_search: enableEnrollerSearch,
+          retail_customer_type: retailCustomerType,
+        },
+      }),
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
-          .content,
-        "X-Shopify-Access-Token": shopifyAccessToken,
+        "X-Csrf-Token": csrfToken,
       },
     });
 
-    if (response.ok) {
-      await refetchProductCount();
-      setToastProps({
-        content: "user created",
-      });
-    } else {
-      setIsLoading(false);
-      setToastProps({
-        content: "user not created",
-        error: true,
-      });
-    }
+    // if (response.ok) {
+    //   await refetchProductCount();
+    //   setToastProps({
+    //     content: "user created",
+    //   });
+    // } else {
+    //   setIsLoading(false);
+    //   setToastProps({
+    //     content: "user not created",
+    //     error: true,
+    //   });
+    // }
   };
 
   return (
@@ -147,19 +208,15 @@ export function ProductsCard() {
 
         <FormLayout>
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              value={name}
-              onChange={(value) => setName(value)}
-              autoComplete="off"
-            />
-            <TextField
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(value) => setEmail(value)}
-              autoComplete="off"
-            />
+            {fields.map((field) => (
+              <TextField
+                key={field.label}
+                label={field.label}
+                value={field.value}
+                onChange={(value) => field.setter(value)}
+                autoComplete="off"
+              />
+            ))}
             <Button submit primary>
               Submit
             </Button>
