@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   scope path: :api, format: :json do
     # POST /api/products and GET /api/products/count
-    resources :products, only: :create do
+    resources :products, only: [:index, :create] do
       collection do
         get :count
       end

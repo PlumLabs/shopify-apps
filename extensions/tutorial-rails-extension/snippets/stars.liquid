@@ -14,5 +14,27 @@
 
 <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script> -->
 
-<div id="react-component"></div>
+
+
+
+
+
+
+
+<!-- <link rel="stylesheet" href="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/styles.css" />
+<script src="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/index.js"></script> -->
+
+
+<!-- <link rel="stylesheet" href="https://unpkg.com/@shopify/polaris@6.0.0/dist/styles.css">
+<script src="https://unpkg.com/@shopify/polaris@6.0.0/dist/index.js"></script> -->
+
+<link rel="stylesheet" href="https://cdn.shopify.com/polaris/6.0.0/polaris.css">
+<script src="https://cdn.shopify.com/polaris/6.0.0/polaris.js"></script>
+
+
+
+{% assign all_products = collections.all.products %}
+{% assign products_json = all_products | json | replace: '"', "'" %}
+
+<div id="react-component" data-products="{{ products_json }}"></div>
 <script type="text/babel" src="{{ 'react_component.js' | asset_url }}"></script>

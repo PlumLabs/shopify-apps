@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class ProductsController < AuthenticatedController
+  # GET /api/products
+  def index
+    products = ShopifyAPI::Product.all
+    render(json: products)
+  end
+
   # GET /api/products/count
   def count
     product_count = ShopifyAPI::Product.count.body

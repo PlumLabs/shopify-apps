@@ -59,6 +59,19 @@ export function ProductsCard() {
       },
     },
   });
+  // const {
+  //   data,
+  //   refetch: refetchProductCount,
+  //   isLoading: isLoadingCount,
+  //   isRefetching: isRefetchingCount,
+  // } = useAppQuery({
+  //   url: "/api/products",
+  //   reactQueryOptions: {
+  //     onSuccess: () => {
+  //       setIsLoading(false);
+  //     },
+  //   },
+  // });
 
   const fields = [
     { label: "ShopUrl", value: shopUrl, setter: setShopUrl },
