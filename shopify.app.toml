@@ -3,7 +3,7 @@
 client_id = "a350c3ccda1170dc5bdafce9bd8065d5"
 name = "tutorial-rails-app"
 handle = "tutorial-rails-app"
-application_url = "https://algeria-doctors-angeles-coordinate.trycloudflare.com"
+application_url = "https://soon-regular-realm-commonwealth.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://algeria-doctors-angeles-coordinate.trycloudflare.com/auth/callback",
-  "https://algeria-doctors-angeles-coordinate.trycloudflare.com/auth/shopify/callback",
-  "https://algeria-doctors-angeles-coordinate.trycloudflare.com/api/auth/callback"
+  "https://soon-regular-realm-commonwealth.trycloudflare.com/auth/callback",
+  "https://soon-regular-realm-commonwealth.trycloudflare.com/auth/shopify/callback",
+  "https://soon-regular-realm-commonwealth.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
