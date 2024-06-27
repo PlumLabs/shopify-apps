@@ -71,7 +71,7 @@ const ProductCollection = ({ products }) => {
           <div class="Polaris-LegacyCard">
             <div class="Polaris-LegacyCard__Section Polaris-LegacyCard__FirstSectionPadding Polaris-LegacyCard__LastSectionPadding">
               {cartProducts &&
-                cartProducts.map((groupedProducts) => (
+                cartProducts.slice(0, 2).map((groupedProducts) => (
                   <div
                     class="Polaris-Grid"
                     style={{
