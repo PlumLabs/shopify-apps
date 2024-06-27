@@ -1,8 +1,4 @@
-// const { ReactDOM, Polaris, Card, ResourceList, Stack, TextStyle } = window; // Acceso a Polaris desde el objeto global
-// const { Polaris, TextStyle } = window.Shopify;
-// console.log("window.Shopify ", window.Shopify);
-
-const UserList = ({ products }) => {
+const ProductCollection = ({ products }) => {
   const [apiUrl, setApiUrl] = React.useState("");
   const [shopUrl, setShopUrl] = React.useState("");
   const [loading, setLoading] = React.useState(true);
@@ -11,7 +7,7 @@ const UserList = ({ products }) => {
   const fetchCredentials = async () => {
     try {
       const response = await fetch(
-        "http://localhost:54866/api/organizations/2",
+        "http://localhost:64513/api/organizations/2",
       );
       const data = await response.json();
       setApiUrl(data.api_url);
@@ -20,23 +16,6 @@ const UserList = ({ products }) => {
       console.error("Error fetching Credentials:", error);
     }
   };
-
-  // const fetchCart = async () => {
-  //   try {
-  //     // const response = await fetch(
-  //     //   "https://shopifyoola.azurewebsites.net/api/Checkout/FetchCart?cartToken=Z2NwLXVzLWVhc3QxOjAxSjA0OTdER0NDUkcwN0FZQU1XMjRBQjFF&shopUrl=424543.myshopify.com&silentLoginToken=null&referral=asdfas&rc=corporphan",
-  //     // );
-  //     const cartToken = "Z2NwLXVzLWVhc3QxOjAxSjA0OTdER0NDUkcwN0FZQU1XMjRBQjFF";
-  //     const response = await fetch(
-  //       `${apiUrl}/api/Checkout/FetchCart?cartToken=${cartToken}&shopUrl=${shopUrl}&silentLoginToken=null&referral=asdfas&rc=corporphan`,
-  //     );
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error("Error fetching Cart:", error);
-  //   }
-  // };
 
   function groupInThrees(collection) {
     return collection.reduce((acc, curr, index) => {
@@ -186,4 +165,4 @@ const reactComponent = document.getElementById("react-component");
 const productsJson = reactComponent.getAttribute("data-products");
 const products = JSON.parse(productsJson.replace(/'/g, '"'));
 
-ReactDOM.render(<UserList products={products} />, reactComponent);
+ReactDOM.render(<ProductCollection products={products} />, reactComponent);
