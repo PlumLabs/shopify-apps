@@ -18,7 +18,6 @@ import { getSessionToken } from "@shopify/app-bridge/utilities";
 import { TokenContext } from "./providers/TokenProvider";
 
 export function ProductsCard() {
-  // const [csrfToken, setCsrfToken] = useState("");
   const [shopUrl, setShopUrl] = useState("");
   const [apiUrl, setApiUrl] = useState("");
   const [checkoutUrl, setCheckoutUrl] = useState("");
@@ -44,7 +43,6 @@ export function ProductsCard() {
   const productsCount = 5;
 
   const { csrfToken } = useContext(TokenContext);
-  // console.log("csrfToken ", csrfToken);
 
   const {
     data,
@@ -124,7 +122,6 @@ export function ProductsCard() {
 
   const handlePopulate = async () => {
     setIsLoading(true);
-    // const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const response = await fetch("/api/products", { method: "POST" });
 
     if (response.ok) {
@@ -142,17 +139,6 @@ export function ProductsCard() {
       });
     }
   };
-
-  // const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-  // console.log("csrfToken ", csrfToken);
-  // axios.defaults.headers.common["X-CSRF-Token"] = csrfToken;
-
-  // const scriptTag = document.querySelector(
-  //   'script[data-serialized-id="server-data"]',
-  // );
-  // const jsonData = JSON.parse(scriptTag.textContent);
-  // const csrfToken = jsonData.csrfToken;
-  // Selecciona el script tag que contiene el JSON
 
   const handleSubmit = async (event) => {
     const response = await fetch("/api/organizations", {
@@ -180,19 +166,6 @@ export function ProductsCard() {
         "X-Csrf-Token": csrfToken,
       },
     });
-
-    // if (response.ok) {
-    //   await refetchProductCount();
-    //   setToastProps({
-    //     content: "user created",
-    //   });
-    // } else {
-    //   setIsLoading(false);
-    //   setToastProps({
-    //     content: "user not created",
-    //     error: true,
-    //   });
-    // }
   };
 
   return (

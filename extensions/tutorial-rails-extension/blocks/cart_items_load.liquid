@@ -1,0 +1,16 @@
+<span style="color:{{ block.settings.colour }}">
+  {% render 'cart_items' %}
+</span>
+
+
+{% schema %}
+{
+  "name": "Cart - Items",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#000000" }
+  ]
+}
+{% endschema %}
+

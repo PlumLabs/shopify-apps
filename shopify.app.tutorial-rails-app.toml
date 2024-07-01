@@ -1,9 +1,9 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "65a68fbd9314ebffbe8e69a817b70b5d"
+client_id = "004188b8d53cd83d6c38ab1a7ca09fc4"
 name = "tutorial-rails-app"
-handle = "tutorial-rails-app-1"
-application_url = "https://example.com/"
+handle = "tutorial-rails-app-2"
+application_url = "https://shopify.dev/apps/default-app-home"
 embedded = true
 
 [access_scopes]
@@ -11,7 +11,7 @@ embedded = true
 scopes = ""
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
 
 [webhooks]
 api_version = "2024-04"

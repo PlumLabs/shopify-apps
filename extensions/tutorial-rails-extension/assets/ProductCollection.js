@@ -7,7 +7,7 @@ const ProductCollection = ({ products }) => {
   const fetchCredentials = async () => {
     try {
       const response = await fetch(
-        "http://localhost:64513/api/organizations/2",
+        "http://localhost:51970/api/organizations/2",
       );
       const data = await response.json();
       setApiUrl(data.api_url);
