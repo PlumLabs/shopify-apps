@@ -1,11 +1,11 @@
 <span style="color:{{ block.settings.colour }}">
-  {% render 'cart_items' %}
+  {% render 'cart_items_load' %}
 </span>
 
 
 {% schema %}
 {
-  "name": "Cart - Items",
+  "name": "Cart - Items Load",
   "target": "section",
   "settings": [
     { "type": "product", "id": "product", "label": "product", "autofill": true },

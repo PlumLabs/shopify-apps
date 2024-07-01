@@ -3,7 +3,7 @@
 client_id = "a350c3ccda1170dc5bdafce9bd8065d5"
 name = "tutorial-rails-app"
 handle = "tutorial-rails-app"
-application_url = "https://jpg-eval-talent-ideal.trycloudflare.com"
+application_url = "https://forward-seriously-appropriations-direction.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://jpg-eval-talent-ideal.trycloudflare.com/auth/callback",
-  "https://jpg-eval-talent-ideal.trycloudflare.com/auth/shopify/callback",
-  "https://jpg-eval-talent-ideal.trycloudflare.com/api/auth/callback"
+  "https://forward-seriously-appropriations-direction.trycloudflare.com/auth/callback",
+  "https://forward-seriously-appropriations-direction.trycloudflare.com/auth/shopify/callback",
+  "https://forward-seriously-appropriations-direction.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

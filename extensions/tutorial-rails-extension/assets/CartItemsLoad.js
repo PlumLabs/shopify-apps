@@ -1,4 +1,4 @@
-const CartItems = ({ items }) => {
+const CartItemsLoad = ({ items }) => {
   const [apiUrl, setApiUrl] = React.useState("");
   const [shopUrl, setShopUrl] = React.useState("");
   const [loading, setLoading] = React.useState(true);
@@ -261,4 +261,4 @@ const reactComponent = document.getElementById("react-component");
 const itemsJson = reactComponent.getAttribute("data-items");
 const items = JSON.parse(itemsJson.replace(/'/g, '"'));
 
-ReactDOM.render(<CartItems items={items} />, reactComponent);
+ReactDOM.render(<CartItemsLoad items={items} />, reactComponent);

@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/styles.css" />
 <script src="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/index.js"></script>
 
-{% assign all_products = collections.all.products %}
-{% assign products_json = all_products | json | replace: '"', "'" %}
+{% assign cart_items = cart.items %}
+{% assign cart_items_json = cart_items | json | replace: '"', "'" %}
 
-<div id="react-component" data-products="{{ products_json }}"></div>
-<script type="text/babel" src="{{ 'CartItems.js' | asset_url }}"></script>
+<div id="react-component" data-items="{{ cart_items_json }}"></div>
+<script type="text/babel" src="{{ 'CartItemsLoad.js' | asset_url }}"></script>
