@@ -3,13 +3,12 @@
 client_id = "a350c3ccda1170dc5bdafce9bd8065d5"
 name = "tutorial-rails-app"
 handle = "tutorial-rails-app"
-application_url = "https://forward-seriously-appropriations-direction.trycloudflare.com"
+application_url = "https://virtually-yes-girl-fleet.trycloudflare.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "quickstart-24eb93de.myshopify.com"
-include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -17,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://forward-seriously-appropriations-direction.trycloudflare.com/auth/callback",
-  "https://forward-seriously-appropriations-direction.trycloudflare.com/auth/shopify/callback",
-  "https://forward-seriously-appropriations-direction.trycloudflare.com/api/auth/callback"
+  "https://virtually-yes-girl-fleet.trycloudflare.com/auth/callback",
+  "https://virtually-yes-girl-fleet.trycloudflare.com/auth/shopify/callback",
+  "https://virtually-yes-girl-fleet.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

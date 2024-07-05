@@ -5,8 +5,5 @@
 <link rel="stylesheet" href="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/styles.css" />
 <script src="https://unpkg.com/@shopify/polaris@10.50.1/build/esm/index.js"></script>
 
-{% assign cart_items = cart.items %}
-{% assign cart_items_json = cart_items | json | replace: '"', "'" %}
-
-<div id="react-component" data-items="{{ cart_items_json }}"></div>
+<div id="cart-subtotal-component"></div>
 <script type="text/babel" src="{{ 'CartSubtotal.js' | asset_url }}"></script>

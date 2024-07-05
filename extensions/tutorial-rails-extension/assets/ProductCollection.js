@@ -161,7 +161,7 @@ const ProductCollection = ({ products }) => {
   return <div>{loading ? <p>Loading...</p> : ProductSlider()}</div>;
 };
 
-const reactComponent = document.getElementById("react-component");
+const reactComponent = document.getElementById("product-collection-component");
 const productsJson = reactComponent.getAttribute("data-products");
 const products = JSON.parse(productsJson.replace(/'/g, '"'));
 

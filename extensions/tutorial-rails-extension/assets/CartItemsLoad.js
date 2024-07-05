@@ -1,37 +1,23 @@
-const CartItemsLoad = ({ items }) => {
+const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
   const [apiUrl, setApiUrl] = React.useState("");
   const [shopUrl, setShopUrl] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [cartProducts, setCartProducts] = React.useState([]);
+  const [orderTotal, setOrderTotal] = React.useState("");
+
+  React.useEffect(() => {
+    setApiUrl(api_url);
+    setShopUrl(shop_url);
+  }, [apiUrl, shopUrl]);
 
   React.useEffect(() => {
     const fetchData = async () => {
       if (items.length) {
-        // fetchCredentials();
-
         const updatedItems = await Promise.all(
           items.map(async (product) => {
-            const sku = product.sku;
-            if (sku) {
-              try {
-                const response = await fetch(
-                  `https://shopifyoola.azurewebsites.net/api/context/getProductPrice?pricetype=1_usd&sku=${sku}&shopUrl=424543.myshopify.com`,
-                );
-
-                const data = await response.json();
-                const newPrice = data.price;
-
-                return { ...product, price: newPrice };
-              } catch (error) {
-                console.error("Error fetching product price:", error);
-                return product; // Return original product if there's an error
-              }
-            } else {
-              return product; // Return original product if SKU is missing
-            }
+            return setCartPrice(product);
           }),
         );
-
         setLoading(false);
 
         setCartProducts(updatedItems);
@@ -41,7 +27,78 @@ const CartItemsLoad = ({ items }) => {
     fetchData();
   }, []);
 
-  console.log("cartProducts ", cartProducts);
+  const setCartPrice = async (item, priceType = "1_usd") => {
+    const sku = item.sku;
+    const quantity = item.quantity;
+
+    if (sku) {
+      try {
+        const response = await fetch(
+          `${apiUrl}/api/context/calculateCartItem?pricetype=1_usd&sku=${sku}&quantity=${quantity}&shopUrl=${shopUrl}`,
+        );
+
+        const data = await response.json();
+        const newPrice = data.price;
+
+        return { ...item, price: newPrice };
+      } catch (error) {
+        console.error("Error fetching product price:", error);
+        return item; // Return original product if there's an error
+      }
+    } else {
+      return item; // Return original product if SKU is missing
+    }
+  };
+
+  const increaseQuantity = async (item) => {
+    const updatedItems = await Promise.all(
+      cartProducts.map(async (product) => {
+        if (product.id == item.id) {
+          const sku = item.sku;
+          const quantity = item.quantity + 1;
+
+          const response = await fetch(
+            `${apiUrl}/api/context/calculateCartItem?pricetype=1_usd&sku=${sku}&quantity=${quantity}&shopUrl=${shopUrl}`,
+          );
+
+          const data = await response.json();
+          const newPrice = data.finalPrice;
+
+          return { ...item, price: newPrice, quantity: quantity };
+        } else {
+          return product;
+        }
+      }),
+    );
+
+    setCartProducts(updatedItems);
+  };
+
+  const decreaseQuantity = async (item) => {
+    const updatedItems = await Promise.all(
+      cartProducts.map(async (product) => {
+        if (product.id == item.id) {
+          console.log("item ", item);
+          console.log("product ", product);
+          const sku = item.sku;
+          const quantity = item.quantity - 1;
+
+          const response = await fetch(
+            `${apiUrl}/api/context/calculateCartItem?pricetype=1_usd&sku=${sku}&quantity=${quantity}&shopUrl=${shopUrl}`,
+          );
+
+          const data = await response.json();
+          const newPrice = data.finalPrice;
+
+          return { ...item, price: newPrice, quantity: quantity };
+        } else {
+          return product;
+        }
+      }),
+    );
+
+    setCartProducts(updatedItems);
+  };
 
   return (
     <div class="custom-card">
@@ -84,7 +141,7 @@ const CartItemsLoad = ({ items }) => {
                 cartProducts.map((item) => (
                   <tr class="cart-item">
                     <td class="product-image">
-                      <img src={item.image} alt="Product Image" height="169" />
+                      <img src={item.image} alt="Product Image" height="100" />
                     </td>
                     <td>
                       <div class="cart-item__name h4 break">
@@ -103,6 +160,9 @@ const CartItemsLoad = ({ items }) => {
                             class="quantity__button no-js-hidden disabled"
                             name="minus"
                             type="button"
+                            onClick={() => {
+                              decreaseQuantity(item);
+                            }}
                           >
                             <span class="visually-hidden">
                               Decrease quantity for The Collection Snowboard:
@@ -141,6 +201,9 @@ const CartItemsLoad = ({ items }) => {
                             class="quantity__button no-js-hidden"
                             name="plus"
                             type="button"
+                            onClick={() => {
+                              increaseQuantity(item);
+                            }}
                           >
                             <span class="visually-hidden">
                               Increase quantity for The Collection Snowboard:
@@ -238,18 +301,13 @@ const CartItemsLoad = ({ items }) => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="Polaris-Card">
         <div class="Polaris-Card__Section">
           <div class="Polaris-Stack Polaris-Stack--distributionTrailing">
             <div class="Polaris-Stack__Item custom-subtotal">
-              Subtotal: $65.00
+              Subtotal: ${orderTotal}
             </div>
-          </div>
-        </div>
-        <div class="Polaris-Card__Section">
-          <div class="Polaris-Stack Polaris-Stack--distributionTrailing">
-            <a href="#" class="Polaris-Button Polaris-Button--primary">
-              Checkout
-            </a>
           </div>
         </div>
       </div>
@@ -257,8 +315,25 @@ const CartItemsLoad = ({ items }) => {
   );
 };
 
-const reactComponent = document.getElementById("react-component");
+const reactComponent = document.getElementById("cart-items-component");
 const itemsJson = reactComponent.getAttribute("data-items");
 const items = JSON.parse(itemsJson.replace(/'/g, '"'));
 
-ReactDOM.render(<CartItemsLoad items={items} />, reactComponent);
+const cartTokenJson = reactComponent.getAttribute("data-cart-token");
+const cartToken = JSON.parse(cartTokenJson.replace(/'/g, '"'));
+
+const reactCredentialsComponent = document.getElementById(
+  "backend-credentials",
+);
+const api_url = reactCredentialsComponent.getAttribute("data-api-url");
+const shop_url = reactCredentialsComponent.getAttribute("data-shop-url");
+
+ReactDOM.render(
+  <CartItemsLoad
+    items={items}
+    cartToken={cartToken}
+    api_url={api_url}
+    shop_url={shop_url}
+  />,
+  reactComponent,
+);

@@ -8,5 +8,5 @@
 {% assign all_products = collections.all.products %}
 {% assign products_json = all_products | json | replace: '"', "'" %}
 
-<div id="react-component" data-products="{{ products_json }}"></div>
+<div id="product-show-component" data-products="{{ products_json }}"></div>
 <script type="text/babel" src="{{ 'ProductShow.js' | asset_url }}"></script>

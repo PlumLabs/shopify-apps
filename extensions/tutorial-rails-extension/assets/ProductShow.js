@@ -6,6 +6,6 @@ const ProductShow = ({ product }) => {
   return <div>Product Show</div>;
 };
 
-const reactComponent = document.getElementById("react-component");
+const reactComponent = document.getElementById("product-show-component");
 
 ReactDOM.render(<ProductShow />, reactComponent);

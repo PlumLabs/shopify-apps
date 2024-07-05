@@ -1,20 +1,28 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "004188b8d53cd83d6c38ab1a7ca09fc4"
+client_id = "ad42d0b54d30b09a195155571bc2c08f"
 name = "tutorial-rails-app"
-handle = "tutorial-rails-app-2"
-application_url = "https://shopify.dev/apps/default-app-home"
+handle = "tutorial-rails-app-3"
+application_url = "https://thoughts-eq-bizrate-innovations.trycloudflare.com"
 embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-8a3ca39e.myshopify.com"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
+scopes = "read_products"
 
 [auth]
-redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+redirect_urls = [
+  "https://thoughts-eq-bizrate-innovations.trycloudflare.com/auth/callback",
+  "https://thoughts-eq-bizrate-innovations.trycloudflare.com/auth/shopify/callback",
+  "https://thoughts-eq-bizrate-innovations.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
-api_version = "2024-04"
+api_version = "2024-07"
 
 [pos]
 embedded = false
