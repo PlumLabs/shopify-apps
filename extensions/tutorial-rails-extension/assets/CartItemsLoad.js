@@ -8,9 +8,7 @@ const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
   React.useEffect(() => {
     setApiUrl(api_url);
     setShopUrl(shop_url);
-  }, [apiUrl, shopUrl]);
 
-  React.useEffect(() => {
     const fetchData = async () => {
       if (items.length) {
         const updatedItems = await Promise.all(
@@ -24,8 +22,10 @@ const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (apiUrl !== "" && shopUrl !== "") {
+      fetchData();
+    }
+  }, [apiUrl, shopUrl]);
 
   const setCartPrice = async (item, priceType = "1_usd") => {
     const sku = item.sku;
@@ -137,11 +137,11 @@ const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
             <tbody>
               {cartProducts &&
                 cartProducts.map((item) => (
-                  <tr class="cart-item">
+                  <tr class="cart-item__media">
                     <td class="product-image">
                       <img src={item.image} alt="Product Image" height="100" />
                     </td>
-                    <td>
+                    <td class="cart-item__details">
                       <div class="cart-item__name h4 break">
                         {item.product_title}
                       </div>
@@ -291,7 +291,7 @@ const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
                       </div>
                     </td>
 
-                    <td>
+                    <td class="cart-item__totals right small-hide">
                       <div class="product-option">${item.price}</div>
                     </td>
                   </tr>
