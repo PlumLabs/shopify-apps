@@ -4,33 +4,23 @@ const ProductCollection = ({ products }) => {
   const [loading, setLoading] = React.useState(true);
   const [cartProducts, setCartProducts] = React.useState([]);
 
-  const fetchCredentials = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:51970/api/organizations/2",
-      );
-      const data = await response.json();
-      setApiUrl(data.api_url);
-      setShopUrl(data.shop_url);
-    } catch (error) {
-      console.error("Error fetching Credentials:", error);
-    }
-  };
+  React.useEffect(() => {
+    setApiUrl(api_url);
+    setShopUrl(shop_url);
+  }, [apiUrl, shopUrl]);
 
-  function groupInThrees(collection) {
+  const groupInThrees = (collection) => {
     return collection.reduce((acc, curr, index) => {
       if (index % 3 === 0) {
         acc.push(collection.slice(index, index + 3));
       }
       return acc;
     }, []);
-  }
+  };
 
   React.useEffect(() => {
     const fetchData = async () => {
       if (products.length) {
-        // fetchCredentials();
-
         const updatedProducts = await Promise.all(
           products.map(async (product) => {
             const sku = product.variants[0].sku;
@@ -165,4 +155,17 @@ const reactComponent = document.getElementById("product-collection-component");
 const productsJson = reactComponent.getAttribute("data-products");
 const products = JSON.parse(productsJson.replace(/'/g, '"'));
 
-ReactDOM.render(<ProductCollection products={products} />, reactComponent);
+const reactCredentialsComponent = document.getElementById(
+  "backend-credentials",
+);
+const api_url = reactCredentialsComponent.getAttribute("data-api-url");
+const shop_url = reactCredentialsComponent.getAttribute("data-shop-url");
+
+ReactDOM.render(
+  <ProductCollection
+    products={products}
+    api_url={api_url}
+    shop_url={shop_url}
+  />,
+  reactComponent,
+);

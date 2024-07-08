@@ -78,8 +78,6 @@ const CartItemsLoad = ({ items, cartToken, api_url, shop_url }) => {
     const updatedItems = await Promise.all(
       cartProducts.map(async (product) => {
         if (product.id == item.id) {
-          console.log("item ", item);
-          console.log("product ", product);
           const sku = item.sku;
           const quantity = item.quantity - 1;
 

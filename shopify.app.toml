@@ -3,7 +3,7 @@
 client_id = "a350c3ccda1170dc5bdafce9bd8065d5"
 name = "tutorial-rails-app"
 handle = "tutorial-rails-app"
-application_url = "https://virtually-yes-girl-fleet.trycloudflare.com"
+application_url = "https://based-hunt-reduce-learners.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://virtually-yes-girl-fleet.trycloudflare.com/auth/callback",
-  "https://virtually-yes-girl-fleet.trycloudflare.com/auth/shopify/callback",
-  "https://virtually-yes-girl-fleet.trycloudflare.com/api/auth/callback"
+  "https://based-hunt-reduce-learners.trycloudflare.com/auth/callback",
+  "https://based-hunt-reduce-learners.trycloudflare.com/auth/shopify/callback",
+  "https://based-hunt-reduce-learners.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
