@@ -7,18 +7,7 @@ const ProductCollection = ({ products }) => {
   React.useEffect(() => {
     setApiUrl(api_url);
     setShopUrl(shop_url);
-  }, [apiUrl, shopUrl]);
 
-  const groupInThrees = (collection) => {
-    return collection.reduce((acc, curr, index) => {
-      if (index % 3 === 0) {
-        acc.push(collection.slice(index, index + 3));
-      }
-      return acc;
-    }, []);
-  };
-
-  React.useEffect(() => {
     const fetchData = async () => {
       if (products.length) {
         const updatedProducts = await Promise.all(
@@ -27,7 +16,7 @@ const ProductCollection = ({ products }) => {
             if (sku) {
               try {
                 const response = await fetch(
-                  `https://shopifyoola.azurewebsites.net/api/context/getProductPrice?pricetype=1_usd&sku=${sku}&shopUrl=424543.myshopify.com`,
+                  `${apiUrl}/api/context/getProductPrice?pricetype=1_usd&sku=${sku}&shopUrl=${shopUrl}`,
                 );
 
                 const data = await response.json();
@@ -50,11 +39,21 @@ const ProductCollection = ({ products }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (apiUrl !== "" && shopUrl !== "") {
+      fetchData();
+    }
+  }, [apiUrl, shopUrl]);
+
+  const groupInThrees = (collection) => {
+    return collection.reduce((acc, curr, index) => {
+      if (index % 3 === 0) {
+        acc.push(collection.slice(index, index + 3));
+      }
+      return acc;
+    }, []);
+  };
 
   const ProductSlider = () => {
-    console.log("cartProducts ", cartProducts);
     return (
       <div class="Polaris-Page Polaris-Page--fullWidth">
         <div class="Polaris-Page__Content">
