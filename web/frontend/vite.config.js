@@ -14,8 +14,11 @@ if (
   );
 }
 
+const portTarget =
+  process.env.NODE_ENV === "development" ? "3001" : process.env.BACKEND_PORT;
+
 const proxyOptions = {
-  target: `http://127.0.0.1:${process.env.BACKEND_PORT}`,
+  target: `http://127.0.0.1:${portTarget}`,
   changeOrigin: false,
   secure: true,
   ws: false,

@@ -1,39 +1,26 @@
-import { useState, useEffect, useContext } from "react";
-import {
-  Card,
-  TextContainer,
-  Text,
-  FormLayout,
-  TextField,
-  Button,
-} from "@shopify/polaris";
-import { Toast } from "@shopify/app-bridge-react";
-import { useTranslation } from "react-i18next";
-import { useAppQuery, useAuthenticatedFetch } from "../hooks";
+import { useState, useEffect, useContext } from 'react';
+import { Card, Text, FormLayout, TextField, Button } from '@shopify/polaris';
+import { Toast } from '@shopify/app-bridge-react';
+import { useTranslation } from 'react-i18next';
+import { useAppQuery, useAuthenticatedFetch } from '../hooks';
 
-import axios from "axios";
-import createApp from "@shopify/app-bridge";
-import { getSessionToken } from "@shopify/app-bridge/utilities";
-
-import { TokenContext } from "./providers/TokenProvider";
+import { TokenContext } from './providers/TokenProvider';
 
 export function ProductsCard() {
-  const [shopUrl, setShopUrl] = useState("");
-  const [apiUrl, setApiUrl] = useState("");
-  const [checkoutUrl, setCheckoutUrl] = useState("");
-  const [debugCheckoutUrl, setDebugCheckoutUrl] = useState("");
-  const [debugApiUrl, setDebugApiUrl] = useState("");
-  const [backofficeUrl, setBackofficeUrl] = useState("");
-  const [replicatedSiteUrl, setReplicatedSiteUrl] = useState("");
-  const [referralCookieName, setReferralCookieName] = useState("");
-  const [rcCookieName, setRcCookieName] = useState("");
-  const [loginCookie, setLoginCookie] = useState("");
-  const [referralParameter, setReferralParameter] = useState("");
-  const [defaultWebalias, setDefaultWebalias] = useState("");
-  const [enableEnrollerSearch, setEnableEnrollerSearch] = useState("");
-  const [retailCustomerType, setRetailCustomerType] = useState("");
-
-  const [shopifyAccessToken, setShopifyAccessToken] = useState("");
+  const [shopUrl, setShopUrl] = useState('');
+  const [apiUrl, setApiUrl] = useState('');
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+  const [debugCheckoutUrl, setDebugCheckoutUrl] = useState('');
+  const [debugApiUrl, setDebugApiUrl] = useState('');
+  const [backofficeUrl, setBackofficeUrl] = useState('');
+  const [replicatedSiteUrl, setReplicatedSiteUrl] = useState('');
+  const [referralCookieName, setReferralCookieName] = useState('');
+  const [rcCookieName, setRcCookieName] = useState('');
+  const [loginCookie, setLoginCookie] = useState('');
+  const [referralParameter, setReferralParameter] = useState('');
+  const [defaultWebalias, setDefaultWebalias] = useState('');
+  const [enableEnrollerSearch, setEnableEnrollerSearch] = useState('');
+  const [retailCustomerType, setRetailCustomerType] = useState('');
 
   const emptyToastProps = { content: null };
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +37,7 @@ export function ProductsCard() {
     isLoading: isLoadingCount,
     isRefetching: isRefetchingCount,
   } = useAppQuery({
-    url: "/api/products/count",
+    url: '/api/products/count',
     reactQueryOptions: {
       onSuccess: () => {
         setIsLoading(false);
@@ -72,45 +59,45 @@ export function ProductsCard() {
   // });
 
   const fields = [
-    { label: "ShopUrl", value: shopUrl, setter: setShopUrl },
-    { label: "ApiUrl", value: apiUrl, setter: setApiUrl },
-    { label: "CheckoutUrl", value: checkoutUrl, setter: setCheckoutUrl },
+    { label: 'ShopUrl', value: shopUrl, setter: setShopUrl },
+    { label: 'ApiUrl', value: apiUrl, setter: setApiUrl },
+    { label: 'CheckoutUrl', value: checkoutUrl, setter: setCheckoutUrl },
     {
-      label: "DebugCheckoutUrl",
+      label: 'DebugCheckoutUrl',
       value: debugCheckoutUrl,
       setter: setDebugCheckoutUrl,
     },
-    { label: "DebugApiUrl", value: debugApiUrl, setter: setDebugApiUrl },
-    { label: "BackofficeUrl", value: backofficeUrl, setter: setBackofficeUrl },
+    { label: 'DebugApiUrl', value: debugApiUrl, setter: setDebugApiUrl },
+    { label: 'BackofficeUrl', value: backofficeUrl, setter: setBackofficeUrl },
     {
-      label: "ReplicatedSiteUrl",
+      label: 'ReplicatedSiteUrl',
       value: replicatedSiteUrl,
       setter: setReplicatedSiteUrl,
     },
     {
-      label: "ReferralCookieName",
+      label: 'ReferralCookieName',
       value: referralCookieName,
       setter: setReferralCookieName,
     },
-    { label: "RcCookieName", value: rcCookieName, setter: setRcCookieName },
-    { label: "LoginCookie", value: loginCookie, setter: setLoginCookie },
+    { label: 'RcCookieName', value: rcCookieName, setter: setRcCookieName },
+    { label: 'LoginCookie', value: loginCookie, setter: setLoginCookie },
     {
-      label: "ReferralParameter",
+      label: 'ReferralParameter',
       value: referralParameter,
       setter: setReferralParameter,
     },
     {
-      label: "DefaultWebalias",
+      label: 'DefaultWebalias',
       value: defaultWebalias,
       setter: setDefaultWebalias,
     },
     {
-      label: "EnableEnrollerSearch",
+      label: 'EnableEnrollerSearch',
       value: enableEnrollerSearch,
       setter: setEnableEnrollerSearch,
     },
     {
-      label: "RetailCustomerType",
+      label: 'RetailCustomerType',
       value: retailCustomerType,
       setter: setRetailCustomerType,
     },
@@ -122,27 +109,27 @@ export function ProductsCard() {
 
   const handlePopulate = async () => {
     setIsLoading(true);
-    const response = await fetch("/api/products", { method: "POST" });
+    const response = await fetch('/api/products', { method: 'POST' });
 
     if (response.ok) {
       await refetchProductCount();
       setToastProps({
-        content: t("ProductsCard.productsCreatedToast", {
+        content: t('ProductsCard.productsCreatedToast', {
           count: productsCount,
         }),
       });
     } else {
       setIsLoading(false);
       setToastProps({
-        content: t("ProductsCard.errorCreatingProductsToast"),
+        content: t('ProductsCard.errorCreatingProductsToast'),
         error: true,
       });
     }
   };
 
   const handleSubmit = async (event) => {
-    const response = await fetch("/api/organizations", {
-      method: "POST",
+    const response = await fetch('/api/organizations', {
+      method: 'POST',
       body: JSON.stringify({
         organization: {
           shop_url: shopUrl,
@@ -162,8 +149,8 @@ export function ProductsCard() {
         },
       }),
       headers: {
-        "Content-Type": "application/json",
-        "X-Csrf-Token": csrfToken,
+        'Content-Type': 'application/json',
+        'X-Csrf-Token': csrfToken,
       },
     });
   };
@@ -172,26 +159,18 @@ export function ProductsCard() {
     <>
       {toastMarkup}
       <Card
-        title={t("ProductsCard.title")}
+        title={t('ProductsCard.title')}
         sectioned
         primaryFooterAction={{
-          content: t("ProductsCard.populateProductsButton", {
-            count: productsCount,
-          }),
-          onAction: handlePopulate,
+          // content: t("ProductsCard.populateProductsButton", {
+          //   count: productsCount,
+          // }),
+          // onAction: handlePopulate,
+          content: 'Submit Credentials',
+          onAction: handleSubmit,
           loading: isLoading,
         }}
       >
-        <TextContainer spacing="loose">
-          <p>{t("ProductsCard.description")}</p>
-          <Text as="h4" variant="headingMd">
-            {t("ProductsCard.totalProductsHeading")}
-            <Text variant="bodyMd" as="p" fontWeight="semibold">
-              {isLoadingCount ? "-" : data.count}
-            </Text>
-          </Text>
-        </TextContainer>
-
         <FormLayout>
           <form onSubmit={handleSubmit}>
             {fields.map((field) => (
@@ -200,12 +179,9 @@ export function ProductsCard() {
                 label={field.label}
                 value={field.value}
                 onChange={(value) => field.setter(value)}
-                autoComplete="off"
+                autoComplete='off'
               />
             ))}
-            <Button submit primary>
-              Submit
-            </Button>
           </form>
         </FormLayout>
       </Card>
